@@ -19,21 +19,20 @@ async def on_ready():
     print(f"✅ {bot.user} est en ligne.")
     print(f"✅ Commandes slash enregistrées : {len(bot.application_commands)}")
 
-async def load_cogs():
+def load_cogs():
     # Logs
-    await bot.load_extension("cogs.logs.message_logs")
-    await bot.load_extension("cogs.logs.moderation_logs")
-    await bot.load_extension("cogs.logs.vocal_logs")
-    await bot.load_extension("cogs.logs.giveaway_logs")
-    await bot.load_extension("cogs.logs.security_logs")
-    await bot.load_extension("cogs.logs.cyber_logs")
+    bot.load_extension("cogs.logs.message_logs")
+    bot.load_extension("cogs.logs.moderation_logs")
+    bot.load_extension("cogs.logs.vocal_logs")
+    bot.load_extension("cogs.logs.giveaway_logs")
+    bot.load_extension("cogs.logs.security_logs")
+    bot.load_extension("cogs.logs.cyber_logs")
     
     # Modération
-    await bot.load_extension("cogs.moderation.mute")
-    await bot.load_extension("cogs.moderation.ban")
-    await bot.load_extension("cogs.moderation.warn")
+    bot.load_extension("cogs.moderation.mute")
+    bot.load_extension("cogs.moderation.ban")
+    bot.load_extension("cogs.moderation.warn")
 
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(load_cogs())
-    bot.run(TOKEN)
+    load_cogs()  # ← synchrone
+    bot.run(TOKEN)  # ← asynchrone, géré par run()
