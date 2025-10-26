@@ -1,4 +1,3 @@
-# cogs/logs/message_logs.py
 from discord.ext import commands
 import discord
 from utils.embeds import log_embed
@@ -8,7 +7,7 @@ class MessageLogs(commands.Cog):
         self.bot = bot
         self.log_channel_id = None
 
-    @commands.command(name="logs_message", description="Définir le salon pour les logs de messages")
+    @commands.slash_command(name="logs_message", description="Définir le salon pour les logs de messages")
     @commands.has_permissions(administrator=True)
     async def set_log_channel(self, ctx, salon: discord.TextChannel):
         self.log_channel_id = salon.id
@@ -54,5 +53,5 @@ class MessageLogs(commands.Cog):
                 f"**Contenu** : {message.content[:1000] or '*[Pièce jointe]*'}"
             ))
 
-async def setup(bot):
-    await bot.add_cog(MessageLogs(bot))
+def setup(bot):
+    bot.add_cog(MessageLogs(bot))
