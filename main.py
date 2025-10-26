@@ -1,4 +1,3 @@
-# main.py
 import os
 import discord
 from dotenv import load_dotenv
@@ -6,14 +5,14 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
-    raise RuntimeError("❌ DISCORD_TOKEN non défini !")
+    raise RuntimeError("❌ DISCORD_TOKEN manquant !")
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 intents.voice_states = True
 
-bot = discord.Bot(intents=intents)  # ← discord.Bot, pas commands.Bot
+bot = discord.Bot(intents=intents)
 
 @bot.event
 async def on_ready():
@@ -21,16 +20,18 @@ async def on_ready():
     print(f"✅ Commandes slash enregistrées : {len(bot.application_commands)}")
 
 async def load_cogs():
-    for root, dirs, files in os.walk("./cogs"):
-        for file in files:
-            if file.endswith(".py") and not file.startswith("__"):
-                rel = os.path.relpath(os.path.join(root, file), "./cogs")
-                mod = rel.replace(os.sep, ".").replace(".py", "")
-                try:
-                    await bot.load_extension(f"cogs.{mod}")
-                    print(f"✅ Chargé : {mod}")
-                except Exception as e:
-                    print(f"❌ Erreur : {mod} → {e}")
+    # Logs
+    await bot.load_extension("cogs.logs.message_logs")
+    await bot.load_extension("cogs.logs.moderation_logs")
+    await bot.load_extension("cogs.logs.vocal_logs")
+    await bot.load_extension("cogs.logs.giveaway_logs")
+    await bot.load_extension("cogs.logs.security_logs")
+    await bot.load_extension("cogs.logs.cyber_logs")
+    
+    # Modération
+    await bot.load_extension("cogs.moderation.mute")
+    await bot.load_extension("cogs.moderation.ban")
+    await bot.load_extension("cogs.moderation.warn")
 
 if __name__ == "__main__":
     import asyncio
