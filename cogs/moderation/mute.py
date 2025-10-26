@@ -1,3 +1,4 @@
+# cogs/moderation/mute.py
 from discord.ext import commands
 import discord
 import asyncio
@@ -64,5 +65,6 @@ class MuteCog(commands.Cog):
         desc = "\n".join(f"<@{uid}> : {data['reason']}" for uid, data in self.muted_users.items())
         await ctx.respond(embed=log_embed("📋 Mutes actifs", desc[:4000]), ephemeral=False)
 
+# ✅ Cette ligne est la seule à la fin du fichier
 def setup(bot):
     bot.add_cog(MuteCog(bot))
