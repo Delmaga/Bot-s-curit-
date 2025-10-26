@@ -1,7 +1,6 @@
 # main.py
 import os
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,15 +13,12 @@ intents.message_content = True
 intents.members = True
 intents.voice_states = True
 
-bot = commands.Bot(
-    command_prefix="!",
-    intents=intents,
-    help_command=None
-)
+bot = discord.Bot(intents=intents)  # ← discord.Bot, pas commands.Bot
 
 @bot.event
 async def on_ready():
     print(f"✅ {bot.user} est en ligne.")
+    print(f"✅ Commandes slash enregistrées : {len(bot.application_commands)}")
 
 async def load_cogs():
     for root, dirs, files in os.walk("./cogs"):
