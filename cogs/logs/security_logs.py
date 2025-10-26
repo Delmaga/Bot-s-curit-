@@ -11,14 +11,14 @@ class SecurityLogs(commands.Cog):
         self.alert_role_id = None
         self.discord_links_allowed = {}  # salon_id → bool
 
-    @commands.slash_command(name="logs_securite", description="Définir salon + rôle pour les alertes sécurité")
+    @commands.command(name="logs_securite", description="Définir salon + rôle pour les alertes sécurité")
     @commands.has_permissions(administrator=True)
     async def set_log_channel(self, ctx, salon: discord.TextChannel, role: discord.Role):
         self.log_channel_id = salon.id
         self.alert_role_id = role.id
         await ctx.respond(f"✅ Logs sécurité → {salon.mention} + ping {role.mention}", ephemeral=False)
 
-    @commands.slash_command(name="lien_discord", description="Autoriser/interdire les liens Discord dans un salon")
+    @commands.command(name="lien_discord", description="Autoriser/interdire les liens Discord dans un salon")
     @commands.has_permissions(manage_messages=True)
     async def toggle_discord_links(self, ctx, salon: discord.TextChannel, actif: bool):
         self.discord_links_allowed[salon.id] = actif

@@ -8,7 +8,7 @@ class MessageLogs(commands.Cog):
         self.bot = bot
         self.log_channel_id = None
 
-    @commands.slash_command(name="logs_message", description="Définir le salon pour les logs de messages")
+    @commands.command(name="logs_message", description="Définir le salon pour les logs de messages")
     @commands.has_permissions(administrator=True)
     async def set_log_channel(self, ctx, salon: discord.TextChannel):
         self.log_channel_id = salon.id

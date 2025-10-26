@@ -8,7 +8,7 @@ class ModerationLogs(commands.Cog):
         self.bot = bot
         self.log_channel_id = None
 
-    @commands.slash_command(name="logs_moderation", description="Définir le salon pour les logs de modération")
+    @commands.command(name="logs_moderation", description="Définir le salon pour les logs de modération")
     @commands.has_permissions(administrator=True)
     async def set_log_channel(self, ctx, salon: discord.TextChannel):
         self.log_channel_id = salon.id

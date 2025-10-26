@@ -8,7 +8,7 @@ class WarnCog(commands.Cog):
         self.bot = bot
         self.warns = {}  # user_id -> list of warns
 
-    @commands.slash_command(name="warn", description="Avertir un utilisateur")
+    @commands.command(name="warn", description="Avertir un utilisateur")
     @commands.has_permissions(manage_messages=True)
     async def warn(self, ctx, membre: discord.Member, *, raison: str):
         if membre.id not in self.warns:
@@ -23,7 +23,7 @@ class WarnCog(commands.Cog):
         )
         await ctx.respond(embed=embed, ephemeral=False)
 
-    @commands.slash_command(name="warn_list", description="Voir les avertissements d'un utilisateur")
+    @commands.command(name="warn_list", description="Voir les avertissements d'un utilisateur")
     @commands.has_permissions(manage_messages=True)
     async def warn_list(self, ctx, membre: discord.Member = None):
         if membre:
@@ -45,7 +45,7 @@ class WarnCog(commands.Cog):
                 )
                 await ctx.respond(embed=log_embed("📋 Tous les avertissements", desc), ephemeral=False)
 
-    @commands.slash_command(name="unwarn", description="Retirer un avertissement (pas implémenté finement)")
+    @commands.command(name="unwarn", description="Retirer un avertissement (pas implémenté finement)")
     @commands.has_permissions(manage_messages=True)
     async def unwarn(self, ctx, membre: discord.Member, *, raison: str = "Retrait manuel"):
         if membre.id in self.warns and self.warns[membre.id]:

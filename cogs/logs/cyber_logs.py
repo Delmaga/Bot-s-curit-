@@ -8,7 +8,7 @@ class CyberLogs(commands.Cog):
         self.bot = bot
         self.log_channel_id = None
 
-    @commands.slash_command(name="logs_cyber", description="Définir le salon pour les logs cyber critiques")
+    @commands.command(name="logs_cyber", description="Définir le salon pour les logs cyber critiques")
     @commands.has_permissions(administrator=True)
     async def set_log_channel(self, ctx, salon: discord.TextChannel):
         self.log_channel_id = salon.id

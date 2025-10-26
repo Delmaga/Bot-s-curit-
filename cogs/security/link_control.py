@@ -7,7 +7,7 @@ class LinkControl(commands.Cog):
         self.bot = bot
         self.discord_links_allowed = {}  # channel_id → bool
 
-    @commands.slash_command(name="lien_discord", description="Autoriser ou bloquer les liens Discord dans un salon")
+    @commands.command(name="lien_discord", description="Autoriser ou bloquer les liens Discord dans un salon")
     @commands.has_permissions(manage_messages=True)
     async def toggle_discord_links(self, ctx, salon: discord.TextChannel, actif: bool):
         self.discord_links_allowed[salon.id] = actif
