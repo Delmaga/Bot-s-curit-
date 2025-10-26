@@ -23,7 +23,6 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     print(f"✅ {bot.user} est en ligne.")
-    print(f"✅ Nombre de commandes : {len(bot.application_commands)}")
 
 async def load_cogs():
     for root, dirs, files in os.walk("./cogs"):
