@@ -59,5 +59,5 @@ class SecurityLogs(commands.Cog):
                 f"```{message.content[:500]}```"
             ))
 
-def setup(bot):
-    bot.add_cog(SecurityLogs(bot))
+async def setup(bot):
+    await bot.add_cog(SecurityLogs(bot))

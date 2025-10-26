@@ -21,5 +21,5 @@ class LinkControl(commands.Cog):
     def are_discord_links_allowed(self, channel_id: int) -> bool:
         return self.discord_links_allowed.get(channel_id, True)
 
-def setup(bot):
-    bot.add_cog(LinkControl(bot))
+async def setup(bot):
+    await bot.add_cog(LinkControl(bot))

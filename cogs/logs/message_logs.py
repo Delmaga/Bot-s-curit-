@@ -54,5 +54,5 @@ class MessageLogs(commands.Cog):
                 f"**Contenu** : {message.content[:1000] or '*[Pièce jointe]*'}"
             ))
 
-def setup(bot):
-    bot.add_cog(MessageLogs(bot))
+async def setup(bot):
+    await bot.add_cog(MessageLogs(bot))

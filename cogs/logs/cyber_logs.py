@@ -42,5 +42,5 @@ class CyberLogs(commands.Cog):
                 f"**Expire dans** : {invite.max_age or 'Jamais'}s"
             ))
 
-def setup(bot):
-    bot.add_cog(CyberLogs(bot))
+async def setup(bot):
+    await bot.add_cog(CyberLogs(bot))

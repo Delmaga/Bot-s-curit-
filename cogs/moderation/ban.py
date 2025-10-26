@@ -66,5 +66,5 @@ class BanCog(commands.Cog):
         )
         await ctx.respond(embed=log_embed("📋 Bans actifs", desc[:4000]), ephemeral=False)
 
-def setup(bot):
-    bot.add_cog(BanCog(bot))
+async def setup(bot):
+    await bot.add_cog(BanCog(bot))

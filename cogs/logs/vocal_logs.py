@@ -38,5 +38,5 @@ class VocalLogs(commands.Cog):
                 f"{member.mention} : **{before.channel.name}** → **{after.channel.name}**"
             ))
 
-def setup(bot):
-    bot.add_cog(VocalLogs(bot))
+async def setup(bot):
+    await bot.add_cog(VocalLogs(bot))

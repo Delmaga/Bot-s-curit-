@@ -56,5 +56,5 @@ class WarnCog(commands.Cog):
         else:
             await ctx.respond("❌ Cet utilisateur n'a pas d'avertissement à retirer.", ephemeral=False)
 
-def setup(bot):
-    bot.add_cog(WarnCog(bot))
+async def setup(bot):
+    await bot.add_cog(WarnCog(bot))

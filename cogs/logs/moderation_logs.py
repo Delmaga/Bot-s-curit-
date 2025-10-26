@@ -107,5 +107,5 @@ class ModerationLogs(commands.Cog):
                 f"**Utilisateur** : {user} (`{user.id}`)"
             ))
 
-def setup(bot):
-    bot.add_cog(ModerationLogs(bot))
+async def setup(bot):
+    await bot.add_cog(ModerationLogs(bot))

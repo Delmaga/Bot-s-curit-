@@ -32,5 +32,5 @@ class GiveawayLogs(commands.Cog):
                 f"[Voir le giveaway]({message.jump_url})"
             ))
 
-def setup(bot):
-    bot.add_cog(GiveawayLogs(bot))
+async def setup(bot):
+    await bot.add_cog(GiveawayLogs(bot))
