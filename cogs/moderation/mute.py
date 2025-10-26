@@ -65,5 +65,5 @@ class MuteCog(commands.Cog):
         desc = "\n".join(f"<@{uid}> : {data['reason']}" for uid, data in self.muted_users.items())
         await ctx.send(embed=log_embed("📋 Mutes actifs", desc[:4000]))
 
-def setup(bot):
-    bot.add_cog(MuteCog(bot))
+async def setup(bot):
+    await bot.add_cog(MuteCog(bot))
