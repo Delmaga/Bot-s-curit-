@@ -1,12 +1,14 @@
+# main.py
 import os
-import discord
 from dotenv import load_dotenv
+import discord
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
     raise RuntimeError("❌ DISCORD_TOKEN manquant !")
 
+# Bot avec intents
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
@@ -17,22 +19,9 @@ bot = discord.Bot(intents=intents)
 @bot.event
 async def on_ready():
     print(f"✅ {bot.user} est en ligne.")
-    print(f"✅ Commandes slash enregistrées : {len(bot.application_commands)}")
+    print(f"✅ Nombre de commandes : {len(bot.application_commands)}")
 
-def load_cogs():
-    # Logs
-    bot.load_extension("cogs.logs.message_logs")
-    bot.load_extension("cogs.logs.moderation_logs")
-    bot.load_extension("cogs.logs.vocal_logs")
-    bot.load_extension("cogs.logs.giveaway_logs")
-    bot.load_extension("cogs.logs.security_logs")
-    bot.load_extension("cogs.logs.cyber_logs")
-    
-    # Modération
-    bot.load_extension("cogs.moderation.mute")
-    bot.load_extension("cogs.moderation.ban")
-    bot.load_extension("cogs.moderation.warn")
+# NE CHARGE RIEN MANUELLEMENT → py-cord le fait automatiquement
+# si les cogs sont dans un dossier nommé "cogs"
 
-if __name__ == "__main__":
-    load_cogs()  # ← synchrone
-    bot.run(TOKEN)  # ← asynchrone, géré par run()
+bot.run(TOKEN)
