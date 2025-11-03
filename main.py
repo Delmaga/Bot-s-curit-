@@ -1,29 +1,48 @@
 # main.py
 import os
-from dotenv import load_dotenv
 import discord
+from discord.ext import commands
+import asyncio
 
-load_dotenv()
+# Récupère le token depuis Railway (obligatoire)
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
-    raise RuntimeError("❌ DISCORD_TOKEN manquant !")
+    raise RuntimeError("❌ DISCORD_TOKEN non défini. Configure-le dans Railway.")
 
+# Intents (nécessaires pour les logs + surveillance de bots)
 intents = discord.Intents.default()
-intents.message_content = True
 intents.members = True
-intents.voice_states = True
+intents.guilds = True
+intents.message_content = True
+intents.presences = True  # Pour détecter bots online/offline
 
-bot = discord.Bot(intents=intents)
+bot = commands.Bot(
+    intents=intents,
+    help_command=None
+)
 
 @bot.event
 async def on_ready():
-    print(f"✅ {bot.user} est en ligne.")
-    print(f"✅ Commandes détectées : {len(bot.application_commands)}")
+    print(f"✅ {bot.user} est en ligne sur {len(bot.guilds)} serveurs.")
+    try:
+        synced = await bot.sync_commands()
+        print(f"🔁 {len(synced)} commandes slash synchronisées.")
+    except Exception as e:
+        print(f"⚠️ Erreur de sync : {e}")
 
-# Chargement automatique des cogs
-from pathlib import Path
-for cog_file in Path("cogs").glob("*.py"):
-    if cog_file.stem != "__init__":
-        bot.load_extension(f"cogs.{cog_file.stem}")
+# Charger les cogs
+async def load_cogs():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py") and not filename.startswith("__"):
+            try:
+                await bot.load_extension(f"cogs.{filename[:-3]}")
+                print(f"📦 Cog chargé : {filename}")
+            except Exception as e:
+                print(f"❌ Erreur chargement {filename} : {e}")
 
-bot.run(TOKEN)
+async def main():
+    await load_cogs()
+    await bot.start(TOKEN)
+
+if __name__ == "__main__":
+    asyncio.run(main())

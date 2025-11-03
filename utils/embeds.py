@@ -10,5 +10,5 @@ def log_embed(title: str, description: str) -> Embed:
         color=0x000000,  # Transparent dans Discord
         timestamp=datetime.utcnow()
     )
-    embed.set_footer(text="Seïko • Sécurité")
+    embed.set_footer(text="test • en")
     return embed
